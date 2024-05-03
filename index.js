@@ -32,7 +32,7 @@ app.get('/',(req,res)=>{
         res.render('home',{});
     }else{
         //res.send('Você buscou por: '+req.query.busca+' na categoria: '+req.query.categoria);
-    res.render('home',{});    
+    res.render('busca',{});    
     }
 
     //res.send('página home funcionando');
