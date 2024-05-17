@@ -1,7 +1,7 @@
 const express = require('express');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://root:S44CxbxiTLbuFke0@cluster0.eijj7wb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+const url = "mongodb+srv://root:S44CxbxiTLbuFke0@cluster0.eijj7wb.mongodb.net/codificators?retryWrites=true&w=majority&appName=Cluster0";
+const mongoose = require('mongoose');
 // const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser')
@@ -10,16 +10,19 @@ app = express();
 
 host = 'localhost:'
 port = 5000;
-/*
-mongoose.connect('mongodb+srv://root:S44CxbxiTLbuFke0@cluster0.eijj7wb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
-    useNewUrlParser: true, useUnifiedTopology: true
-}).then(()=>{
-    console.log('Conectado com sucesso!');
-}).catch((err)=>{
-    console.log(err.message);
-});
-*/
 
+const Posts = require('./Posts.js');
+
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('Conectado com sucesso ao MongoDB!');
+}).catch((err) => {
+  console.error('Erro ao conectar ao MongoDB:', err);
+});
+
+/*
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -28,12 +31,14 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
+
+
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    await client.db("codificators").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
@@ -41,7 +46,7 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
+*/
 
 app.use( bodyParser.json() ); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
@@ -61,10 +66,14 @@ app.set('views', path.join(__dirname, '/pages'));
 
 
 //rotas
+/*
 app.get('/',(req,res)=>{
     //console.log(req.query);
 
     if(req.query.busca == null){
+      Posts.find({}).sort({'_id': -1}).exec(function(err,posts){
+        console.log(posts[0]);
+      });
         res.render('home',{});
     }else{
         //res.send('Você buscou por: '+req.query.busca+' na categoria: '+req.query.categoria);
@@ -73,12 +82,83 @@ app.get('/',(req,res)=>{
 
     //res.send('página home funcionando');
 })
+*/
 
-app.get('/:slug',(req,res)=>{
-    //res.send(req.params.slug);
-    res.render('single',{});
-// http://localhost:5000/sobre-codificadores-de-negocios
-})
+app.get('/', async (req, res) => {
+  try {
+    if (req.query.busca == null) {
+      const posts = await Posts.find({}).sort({ '_id': -1 }).exec(); // Aguarde a conclusão da consulta usando await
+      const formattedPosts = posts.map((post) => {
+        return {
+          title: post.title,
+          content: post.content,
+          shortDesc: post.content.substring(0, 100), // Corrigido "substing" para "substring"
+          image: post.image,
+          slug: post.slug,
+          category: post.category,
+          views: post.views
+        };
+      });
+
+      const topPosts = await Posts.find({}).sort({'views':-1}).limit(4).exec(); // Aguarde a conclusão da consulta usando await
+      const formattedTopPosts = topPosts.map((post) => {
+        return {
+          title: post.title,
+          content: post.content,
+          shortDesc: post.content.substring(0, 100), // Corrigido "substing" para "substring"
+          image: post.image,
+          slug: post.slug,
+          category: post.category,
+          views: post.views
+        };
+      });
+      
+      //console.log(formattedPosts[0].title);
+      res.render('home', { posts: formattedPosts, topPosts:formattedTopPosts }); // Envie os posts formatados como contexto para a renderização da página
+    } else {
+      res.render('busca', {});
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erro interno do servidor');
+  }
+});
+
+
+
+app.get('/:slug', async (req, res) => {  // Adiciona async aqui
+  try {
+    // Incrementa o contador de visualizações e retorna o documento atualizado
+    const response = await Posts.findOneAndUpdate({ slug: req.params.slug }, { $inc: { views: 1 } }, { new: true }).exec();
+    
+    if (response != null) {
+      const topPosts = await Posts.find({}).sort({ 'views': -1 }).limit(4).exec();  // Use await corretamente
+      const formattedTopPosts = topPosts.map((post) => {
+        return {
+          title: post.title,
+          content: post.content,
+          shortDesc: post.content.substring(0, 100),
+          image: post.image,
+          slug: post.slug,
+          category: post.category,
+          views: post.views
+        };
+      });
+
+      res.render('single', { news: response, topPosts: formattedTopPosts });
+    } else{
+        res.redirect('/');
+    }
+    
+
+  } catch (err) {
+    // Lida com o erro, se houver algum
+    console.error(err);
+    res.status(500).send('Erro ao buscar o post.');
+  }
+});
+
+
 
 app.listen(port,()=>{
     console.log('Server rodando em http://'+host+port);

@@ -3,85 +3,40 @@
     <section class="news">
         <div class="center">
             <div class="news-single">
-                <h2>Consequat adipisicing exercitation ea consectetur do adipisicing cillum ut cillum eiusmod.</h2>
+                <h2><%= news.title %></h2>
                 <div class="about-author">
-                    <img src="" alt="">
-                    <span>Por Matheus Rodrigues</span>
+                    <img src="<%= news.authorImage %>" alt="">
+                    <span>Por <%= news.author %></span>
                 </div>
                 <!-- /.author-name -->
 
-                <p>
-                    Fugiat id amet ut do. Fugiat laborum veniam veniam proident anim commodo commodo sint. Eiusmod veniam minim incididunt est dolor dolore proident.
-                    <br/>
-                    <br/>
-                    Cillum excepteur voluptate et Lorem ad eiusmod do aliqua. Reprehenderit Lorem anim labore est do mollit enim aliquip. Qui adipisicing sit esse deserunt adipisicing. Lorem velit sit voluptate velit. Aliquip veniam labore officia exercitation sunt et veniam est incididunt ipsum velit aliquip irure et.
-                    <br/>
-                    <br/>
-                    Culpa Lorem ad aliquip ullamco mollit do fugiat anim. Consequat anim esse sit est minim duis Lorem ut tempor qui. Nostrud ad velit ullamco culpa anim consequat velit non reprehenderit laboris. Aliqua ad amet aute enim aute cillum proident aliquip. Et do consequat consectetur nostrud dolor nulla ut exercitation minim consequat tempor id dolor non. Enim nisi elit cupidatat elit.
-                    <br/>
-                    <br/>
-                    Ea ad quis cillum consequat qui laboris irure id nulla dolore veniam culpa ex exercitation. Est exercitation exercitation dolore elit deserunt consequat. Lorem esse quis anim nulla enim. Et culpa enim velit pariatur quis do et ea aliquip dolor adipisicing. Enim incididunt aliqua reprehenderit reprehenderit tempor laboris occaecat. Anim velit velit excepteur Lorem laborum nostrud voluptate sint labore ad ullamco amet in ex. Cillum dolore in nostrud aliqua dolor enim elit officia non.
-                </p>
-
-                <h3>Consequat adipisicing exercitation ea consectetur do adipisicing cillum ut cillum eiusmod.</h3>
-                
-                <p>
-                    Fugiat id amet ut do. Fugiat laborum veniam veniam proident anim commodo commodo sint. Eiusmod veniam minim incididunt est dolor dolore proident.
-                    <br/>
-                    <br/>
-                    Cillum excepteur voluptate et Lorem ad eiusmod do aliqua. Reprehenderit Lorem anim labore est do mollit enim aliquip. Qui adipisicing sit esse deserunt adipisicing. Lorem velit sit voluptate velit. Aliquip veniam labore officia exercitation sunt et veniam est incididunt ipsum velit aliquip irure et.
-                    <br/>
-                    <br/>
-                    Culpa Lorem ad aliquip ullamco mollit do fugiat anim. Consequat anim esse sit est minim duis Lorem ut tempor qui. Nostrud ad velit ullamco culpa anim consequat velit non reprehenderit laboris. Aliqua ad amet aute enim aute cillum proident aliquip. Et do consequat consectetur nostrud dolor nulla ut exercitation minim consequat tempor id dolor non. Enim nisi elit cupidatat elit.
-                    <br/>
-                    <br/>
-                    Ea ad quis cillum consequat qui laboris irure id nulla dolore veniam culpa ex exercitation. Est exercitation exercitation dolore elit deserunt consequat. Lorem esse quis anim nulla enim. Et culpa enim velit pariatur quis do et ea aliquip dolor adipisicing. Enim incididunt aliqua reprehenderit reprehenderit tempor laboris occaecat. Anim velit velit excepteur Lorem laborum nostrud voluptate sint labore ad ullamco amet in ex. Cillum dolore in nostrud aliqua dolor enim elit officia non.
-                </p>
-            </div>
+                <div>
+                    <img style="min-width: 100%; max-width: 100%; margin-bottom: 15px;" src="<%= news.image %>" alt="news image" >
+                </div>
+                <%- news.content %>
+            
+                </div>
             <!-- /.news-single -->
             <div class="most-read">
                 <h3>Mais Lidas</h3>
                 <div class="most-read-news">
+                    <% for(let i = 1; i < topPosts.length; i++) { %>
                     <div class="read-news-single">
-                        <img src="../public/images/natureza.jpeg" alt="">
+                        <img src="<%= topPosts[i].image %>" alt="">
                         <div class="news-single-text">
-                            <h4>Natureza</h4>
-                            <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                            <a href="/encarar-o-surf">Saiba mais</a>
+                            <h4><%= topPosts[i].title %></h4>
+                            <p><%- topPosts[i].shortDesc %>... - 
+                                <span style="font-size: 12px; font-weight: bold;">
+                                    (<%= topPosts[i].views %> views)
+                                </span>
+                            </p>
+                            <a href="<%= topPosts[i].slug %>">Saiba mais</a>
                         </div>
                         <!-- /.news-single-text -->
                     </div>
                     <!-- /.read-news-single -->
-                    <div class="read-news-single">
-                        <img src="../public/images/natureza.jpeg" alt="">
-                        <div class="news-single-text">
-                            <h4>Natureza</h4>
-                            <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                            <a href="/encarar-o-surf">Saiba mais</a>
-                        </div>
-                        <!-- /.news-single-text -->
-                    </div>
-                    <!-- /.read-news-single -->
-                    <div class="read-news-single">
-                        <img src="../public/images/natureza.jpeg" alt="">
-                        <div class="news-single-text">
-                            <h4>Natureza</h4>
-                            <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                            <a href="/encarar-o-surf">Saiba mais</a>
-                        </div>
-                        <!-- /.news-single-text -->
-                    </div>
-                    <!-- /.read-news-single -->
-                    <div class="read-news-single">
-                        <img src="../public/images/natureza.jpeg" alt="">
-                        <div class="news-single-text">
-                            <h4>Natureza</h4>
-                            <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                            <a href="/encarar-o-surf">Saiba mais</a>
-                        </div>
-                        <!-- /.news-single-text -->
-                    </div>
-                    <!-- /.read-news-single -->
+                    <% } %>
+                    
                 </div>
                 <!-- /.most-read-news -->
             </div>

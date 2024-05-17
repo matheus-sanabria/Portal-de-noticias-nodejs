@@ -6,8 +6,10 @@
                 <div class="highlight-overlay"></div>
                 <!-- /.highlight-overlay -->
                 <div class="highlight-title-description">
-                    <h2>Quer fugir das praias no verão?</h2>
-                    <p>Cillum officia nulla sit velit incididunt amet esse do dolor minim eu. Qui sunt amet id proident dolor. Ut nisi Lorem dolor nisi ullamco occaecat aute ad irure adipisicing dolore proident.</p>
+                    <a href="<%= posts[0].slug %>">
+                        <h2><%= posts[0].title %></h2>
+                    </a> 
+                    <p><%- posts[0].shortDesc %>...</p>
                 </div>
                 <!-- /.highlight-title-description -->
                 <img src="../public/images/landscape.jpeg" alt="landscape image" >
@@ -15,7 +17,7 @@
             <!-- /.hightlight-img -->
         </div>
         <!-- /.center -->
-    </section>
+    </section>  
     <!-- /.news-highlight -->
 
     <section class="other-news">
@@ -23,73 +25,45 @@
             <h2>Últimas Notícias</h2>
             <div class="center">
                 <div class="latest">
+                    <% for(let i = 1; i < posts.length; i++) { %>
+
+                    
                     <div class="box-latest-single">
-                        <img src="../public/images/surf.jpeg" alt="" />
+                        <img src="<%= posts[i].image %>" alt="" />
                         <div class="single-description">
-                            <h3>Natureza e Geral</h3>
-                            <h2>Como encarar o surf mesmo no frio</h2>
-                            <p>Qui ullamco nulla nulla adipisicing labore aliqua exercitation aliquip cillum. Quis aliquip quis velit adipisicing elit ad. Nulla duis esse ex nulla duis. Incididunt duis minim exercitation Lorem pariatur tempor in cupidatat laboris. Aute nisi irure irure adipisicing dolore consequat ut culpa.</p>
-                            <a href="/encarar-o-surf">Saiba mais</a>
+                            <h3><%= posts[i].category %></h3>
+                            <h2><%= posts[i].title %></h2>
+                            <%- posts[i].shortDesc %>...
+                            <a href="<%= posts[i].slug %>">Saiba mais</a>
                         </div>
                         <!-- /.single-description -->
-                        </div>
+                    </div>
                     <!-- /.box-latest-single -->
-                    <div class="box-latest-single">
-                        <img src="../public/images/surf.jpeg" alt="" />
-                        <div class="single-description">
-                            <h3>Natureza e Geral</h3>
-                            <h2>Como encarar o surf mesmo no frio</h2>
-                            <p>Qui ullamco nulla nulla adipisicing labore aliqua exercitation aliquip cillum. Quis aliquip quis velit adipisicing elit ad. Nulla duis esse ex nulla duis. Incididunt duis minim exercitation Lorem pariatur tempor in cupidatat laboris. Aute nisi irure irure adipisicing dolore consequat ut culpa.</p>
-                            <a href="/encarar-o-surf">Saiba mais</a>
-                        </div>
-                        <!-- /.single-description -->
-                        </div>
-                    <!-- /.box-latest-single -->
+                
+                    <% } %>
                 </div>
                 <!-- /.latest -->
+                
                 <div class="most-read">
                     <h3>Mais Lidas</h3>
                     <div class="most-read-news">
+                        <% for(let i = 1; i < topPosts.length; i++) { %>
                         <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
+                            <img src="<%= topPosts[i].image %>" alt="">
                             <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
+                                <h4><%= topPosts[i].title %></h4>
+                                <p><%- topPosts[i].shortDesc %>... - 
+                                    <span style="font-size: 12px; font-weight: bold;">
+                                        (<%= topPosts[i].views %> views)
+                                    </span>
+                                </p>
+                                <a href="<%= topPosts[i].slug %>">Saiba mais</a>
                             </div>
                             <!-- /.news-single-text -->
                         </div>
                         <!-- /.read-news-single -->
-                        <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
-                            <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
-                            </div>
-                            <!-- /.news-single-text -->
-                        </div>
-                        <!-- /.read-news-single -->
-                        <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
-                            <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
-                            </div>
-                            <!-- /.news-single-text -->
-                        </div>
-                        <!-- /.read-news-single -->
-                        <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
-                            <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
-                            </div>
-                            <!-- /.news-single-text -->
-                        </div>
-                        <!-- /.read-news-single -->
+                        <% } %>
+                        
                     </div>
                     <!-- /.most-read-news -->
                 </div>
