@@ -87,12 +87,12 @@ app.get('/',(req,res)=>{
 app.get('/', async (req, res) => {
   try {
     if (req.query.busca == null) {
-      const posts = await Posts.find({}).sort({ '_id': -1 }).exec(); // Aguarde a conclusão da consulta usando await
+      const posts = await Posts.find({}).sort({ '_id': -1 }).exec();
       const formattedPosts = posts.map((post) => {
         return {
           title: post.title,
           content: post.content,
-          shortDesc: post.content.substring(0, 100), // Corrigido "substing" para "substring"
+          shortDesc: post.content.substring(0, 100),
           image: post.image,
           slug: post.slug,
           category: post.category,
@@ -100,27 +100,27 @@ app.get('/', async (req, res) => {
         };
       });
 
-      const topPosts = await Posts.find({}).sort({'views':-1}).limit(4).exec(); // Aguarde a conclusão da consulta usando await
+      const topPosts = await Posts.find({}).sort({ 'views': -1 }).limit(3).exec();
       const formattedTopPosts = topPosts.map((post) => {
         return {
           title: post.title,
           content: post.content,
-          shortDesc: post.content.substring(0, 100), // Corrigido "substing" para "substring"
+          shortDesc: post.content.substring(0, 100),
           image: post.image,
           slug: post.slug,
           category: post.category,
           views: post.views
         };
       });
-      
-      //console.log(formattedPosts[0].title);
-      res.render('home', { posts: formattedPosts, topPosts:formattedTopPosts }); // Envie os posts formatados como contexto para a renderização da página
+
+      res.render('home', { posts: formattedPosts, topPosts: formattedTopPosts });
     } else {
-      res.render('busca', {});
+      const posts = await Posts.find({ title: { $regex: req.query.busca, $options: "i" } }).exec();
+      res.render('busca', { posts: posts, contagem: posts.length });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Erro interno do servidor');
+    res.status(500).send("An error occurred while processing your request.");
   }
 });
 

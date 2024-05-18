@@ -6,48 +6,20 @@
             <div class="center">
                 
                 <div style="width: 100%;" class="most-read">
-                    <h3>33 resultados</h3>
+                    <h3><%= contagem %> resultados</h3>
                     <div class="most-read-news">
-                        <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
-                            <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
+                        <% for(let i = 0; i < posts.length; i++) { %>
+                            <div class="read-news-single">
+                                <img src="<%= posts[i].image %>" alt="">
+                                <div class="news-single-text">
+                                    <h4><%= posts[i].title %></h4>
+                                    <p><%- posts[i].content %>...</p>
+                                    <a href="<%= posts[i].slug %>">Saiba mais</a>
+                                </div>
+                                <!-- /.news-single-text -->
                             </div>
-                            <!-- /.news-single-text -->
-                        </div>
-                        <!-- /.read-news-single -->
-                        <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
-                            <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
-                            </div>
-                            <!-- /.news-single-text -->
-                        </div>
-                        <!-- /.read-news-single -->
-                        <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
-                            <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
-                            </div>
-                            <!-- /.news-single-text -->
-                        </div>
-                        <!-- /.read-news-single -->
-                        <div class="read-news-single">
-                            <img src="../public/images/natureza.jpeg" alt="">
-                            <div class="news-single-text">
-                                <h4>Natureza</h4>
-                                <p>Non occaecat exercitation exercitation ad ad aliquip qui sit ullamco aute.</p>
-                                <a href="/encarar-o-surf">Saiba mais</a>
-                            </div>
-                            <!-- /.news-single-text -->
-                        </div>
-                        <!-- /.read-news-single -->
+                            <!-- /.read-news-single -->
+                            <% } %>
                     </div>
                     <!-- /.most-read-news -->
                 </div>

@@ -33,7 +33,7 @@
                         <div class="single-description">
                             <h3><%= posts[i].category %></h3>
                             <h2><%= posts[i].title %></h2>
-                            <%- posts[i].shortDesc %>...
+                            <p><%- posts[i].shortDesc %>...</p>
                             <a href="<%= posts[i].slug %>">Saiba mais</a>
                         </div>
                         <!-- /.single-description -->
@@ -47,7 +47,7 @@
                 <div class="most-read">
                     <h3>Mais Lidas</h3>
                     <div class="most-read-news">
-                        <% for(let i = 1; i < topPosts.length; i++) { %>
+                        <% for(let i = 0; i < topPosts.length; i++) { %>
                         <div class="read-news-single">
                             <img src="<%= topPosts[i].image %>" alt="">
                             <div class="news-single-text">
